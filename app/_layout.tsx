@@ -9,12 +9,7 @@ export default function RootLayout() {
       name="(tabs)" 
       
     />
-
-    <Stack.Screen 
-      name="index" 
-      
-    />
-
+    
     <Stack.Screen name="movies/[id]" />
 
   </Stack>;
