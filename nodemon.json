@@ -1,0 +1,6 @@
+{
+  "watch": ["services", "src"],
+  "ext": "ts,json",
+  "ignore": ["dist"],
+  "exec": "ts-node ./services/api.ts"
+}
