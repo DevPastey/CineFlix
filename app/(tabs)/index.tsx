@@ -1,4 +1,5 @@
 
+import SearchBar from "@/components/SearchBar";
 import { icons } from "@/constants/icons";
 import { images } from "@/constants/images";
 import { fetchMovies } from "@/services/api";
@@ -16,6 +17,7 @@ export default function Index() {
   } = useFetch(() => fetchMovies({
     query: ''
   }))
+
   return (
     <View
       className="flex-1 bg-primary"
@@ -29,9 +31,18 @@ export default function Index() {
 
         {moviesloading ? (
           <ActivityIndicator 
-
-          />) : (
-            <Text />
+            size="large"
+            color="#0000ff"
+            className="mt-10 self-center"
+          />) : moviesError ? (
+            <Text> Error: ${moviesError?.message}</Text>
+          ) : (
+            <View className="flex-1 mt-5">
+              <SearchBar
+                 onPress={() => router.push("/search")}
+                 placeholder="SEarch for a movie"
+              />
+            </View>
           )
         }
       </ScrollView>
