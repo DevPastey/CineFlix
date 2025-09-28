@@ -5,7 +5,7 @@ module.exports = function (api) {
   plugins.push('react-native-reanimated/plugin');
 
   return {
-    presets: [['babel-preset-expo', { jsxImportSource: 'nativewind' }], 'nativewind/babel', 'module:metro-react-native-babel-preset'],
+    presets: [['babel-preset-expo', { jsxImportSource: 'nativewind' }], 'nativewind/babel',],
     plugins: [
     [
       'module-resolver',
