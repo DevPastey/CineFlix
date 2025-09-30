@@ -1,18 +1,26 @@
 import { icons } from '@/constants/icons';
-import React from 'react';
+import { InputTextProps } from '@/types/componentProps';
+import React, { useState } from 'react';
 import { Image, TextInput, View } from 'react-native';
 
-export default function SearchBar({onPress, placeholder}) {
+export default function SearchBar( {value, onPress, placeholder, onChangeText}: InputTextProps) {
+    // const [value, setValue] = useState<string>('');
+    
   return (
     <View className='flex-row items-center bg-dark-200 rounded-full px-5 py-4'>
         <Image source={icons.search} className='size-5' resizeMode='contain' tintColor="#ab8bff" />
       <TextInput 
-        onPress={() => {}}
+        onPress={onPress}
         placeholder={placeholder}
-        value=''
-        onChangeText={e => {}}
-        placeholderTextColor="#a8b5db"
-        className='flex-1 flex-white ml-2'
+        value={value}
+        onChangeText={onChangeText}
+        placeholderTextColor="a8b5db"
+        className='flex-1 flex-white ml-2 text-white'
+        autoCorrect={false}
+        autoCapitalize="none"
+        clearButtonMode="always"
+        
+    
       />
      </View>
   );

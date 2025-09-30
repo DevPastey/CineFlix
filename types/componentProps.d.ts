@@ -5,3 +5,15 @@ export type TabIconProps = {
     focused: boolean,
     title: string,
 }
+
+export type InputTextProps = {
+    onChangeText: (text:string) => void,
+    placeholder: string,
+    value: string,
+    onPress: () => void,
+
+}
+
+interface T {
+    
+}
