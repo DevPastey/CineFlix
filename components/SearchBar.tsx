@@ -8,7 +8,7 @@ export default function SearchBar({onPress, placeholder}) {
         <Image source={icons.search} className='size-5' resizeMode='contain' tintColor="#ab8bff" />
       <TextInput 
         onPress={() => {}}
-        placeholder='Search'
+        placeholder={placeholder}
         value=''
         onChangeText={e => {}}
         placeholderTextColor="#a8b5db"
