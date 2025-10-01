@@ -7,13 +7,13 @@ export type TabIconProps = {
 }
 
 export type InputTextProps = {
-    onChangeText: (text:string) => void,
+    onChangeText?: (text:string) => void,
     placeholder: string,
-    value: string,
+    value?: string,
     onPress: () => void,
 
 }
 
 interface T {
-    
+
 }
