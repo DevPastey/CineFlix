@@ -9,7 +9,9 @@
     },
     "jsx": "react-native",       // for React 17+
     "allowJs": true,          // (optional) if mixing JS and TS
-    "module": "CommonJS",
+    "target": "ES2020",                 // or "ESNext"
+    "module": "ESNext",                 // or "preserve"
+    "moduleResolution": "bundler",
     "rootDir": "./",
     "outDir": "./dist",
     "esModuleInterop": true,
@@ -22,5 +24,9 @@
     "nativewind-env.d.ts",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
-  ]
+  ],
+   "ts-node": {
+    "skipIgnore": true,
+    "transpileOnly": true
+  }
 }

@@ -50,7 +50,8 @@ export default {
       appwriteProjectId: process.env.EXPO_PUBLIC_APPWRITE_PROJECT_ID,
       appwriteEndpoint: process.env.EXPO_PUBLIC_APPWRITE_ENDPOINT,
       appwriteTableId: process.env.EXPO_PUBLIC_APPWRITE_TABLE_ID,
-      appwriteProjectName: process.env.EXPO_PUBLIC_APPWRITE_PROJECT_NAME
+      appwriteProjectName: process.env.EXPO_PUBLIC_APPWRITE_PROJECT_NAME,
+      appwritePlatform: process.env.EXPO_PUBLIC_APPWRITE_PLATFORM
     },
   },
 };
