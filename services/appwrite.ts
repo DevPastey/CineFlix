@@ -28,55 +28,57 @@ client
 
 const tablesDB = new TablesDB(client);
 
-export const updateSearchCount = async(query:string, movie:Movie[]) => {
-    const firstMovie = movie[0];
-    //console.log(firstMovie)
+export const updateSearchCount = async(query:string, movie:Movie) => {
 
-    const result = await tablesDB.listRows({
-        databaseId: DATABASE_ID,
-        tableId: TABLE_ID,
-        queries: [
-            Query.equal('searchTerm', query)
-        ]
-    })
+    try {
 
-    const rows = result?.rows ?? [];
-
- // Check if the record of that search has already been stored
-    if(rows.length > 0) {
-        const existingMovie = result.rows[0];
-
-        await tablesDB.updateRow<Models.DefaultRow>({
+        const result = await tablesDB.listRows({
             databaseId: DATABASE_ID,
             tableId: TABLE_ID,
-            rowId: existingMovie.$id,
-            data: {
-                count: existingMovie.count + 1,
-            },
-        });
-        console.log(`movie already exist. Count updated`)
-    }else{
-        await tablesDB.createRow<Models.DefaultRow>({
-            databaseId: DATABASE_ID,
-            tableId: TABLE_ID,
-            rowId: ID.unique(),
-            data: {
-                searchTerm: query,
-                movie_id: firstMovie.id,
-                count: 1,
-                poster_url: `https://image.tmdb.org/t/p/w500${firstMovie.poster_path}`,
-                title: firstMovie.title,
-            }
+            queries: [
+                Query.equal('searchTerm', query)
+            ]
+        })
 
-        });
-        console.log('No existing records, newmovie sent to appwrite Database  ', firstMovie.title)
+        const rows = result?.rows ?? [];
 
+        // Check if the record of that search has already been stored
+        if(rows.length > 0) {
+            const existingMovie = result.rows[0];
+
+            await tablesDB.updateRow<Models.DefaultRow>({
+                databaseId: DATABASE_ID,
+                tableId: TABLE_ID,
+                rowId: existingMovie.$id,
+                data: {
+                    count: existingMovie.count + 1,
+                },
+            });
+            console.log(`movie already exist. Count updated`)
+        }else{
+            await tablesDB.createRow<Models.DefaultRow>({
+                databaseId: DATABASE_ID,
+                tableId: TABLE_ID,
+                rowId: ID.unique(),
+                data: {
+                    searchTerm: query,
+                    movie_id: movie.id,
+                    count: 1,
+                    poster_url: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
+                    title: movie.title,
+                }
+
+            });
+            console.log('No existing records, newmovie sent to appwrite Database  ', movie.title)
+
+        }
+        
+    } catch (error) {
+        console.log(error);
+        throw error;
     }
 
-    //console.log("ListRows result:", JSON.stringify(result, null, 2));
 
-
-  //console.log(result);
 
    
     // If document is found, implement searchCount Field

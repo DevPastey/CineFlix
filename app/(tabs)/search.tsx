@@ -23,7 +23,7 @@ const Search = () => {
 
   const handlePress = () => {
     //console.log(searchQuery)
-    updateSearchCount(searchQuery, movies);
+    //updateSearchCount(searchQuery, movies);
     //console.log(movies[0].id)
     // refetchMovies();
   }
@@ -36,6 +36,12 @@ const Search = () => {
         async() =>{
           if (searchQuery.trim()) {
             await refetchMovies()
+
+            if (movies?.length > 0 && movies?.[0]) {
+              updateSearchCount(searchQuery, movies[0])
+            }
+              
+            
           }else{
             reset()
           }
