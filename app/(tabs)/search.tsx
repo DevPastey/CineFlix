@@ -23,6 +23,7 @@ const Search = () => {
 
   const handlePress = () => {
     console.log(searchQuery)
+    updateSearchCount(searchQuery, movies);
     // refetchMovies();
   }
 
