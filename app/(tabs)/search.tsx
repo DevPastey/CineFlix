@@ -22,14 +22,15 @@ const Search = () => {
   }), false);
 
   const handlePress = () => {
-    console.log(searchQuery)
+    //console.log(searchQuery)
     updateSearchCount(searchQuery, movies);
+    //console.log(movies[0].id)
     // refetchMovies();
   }
 
    
     useEffect(() => {
-      updateSearchCount(searchQuery, movies);
+      //updateSearchCount(searchQuery, movies);
 
       const timeoutId = setTimeout(
         async() =>{

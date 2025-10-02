@@ -15,7 +15,7 @@ interface Movie {
   vote_count: number;
 }
 
-interface TrendingMovie {
+export interface TrendingMovie {
   searchTerm: string;
   movie_id: number;
   title: string;

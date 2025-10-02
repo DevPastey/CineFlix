@@ -14,6 +14,3 @@ export type InputTextProps = {
 
 }
 
-interface T {
-
-}

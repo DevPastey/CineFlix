@@ -1,4 +1,6 @@
+import { Movie } from "@/interfaces/interfaces";
 import Constants from "expo-constants";
+import { title } from "process";
 //import "dotenv/config"; 
 import { Client, Account, Models, TablesDB, Query, ID } from 'react-native-appwrite';
 
@@ -26,7 +28,10 @@ client
 
 const tablesDB = new TablesDB(client);
 
-export const updateSearchCount = async(query:string, movie:Movie) => {
+export const updateSearchCount = async(query:string, movie:Movie[]) => {
+    const firstMovie = movie[0];
+    //console.log(firstMovie)
+
     const result = await tablesDB.listRows({
         databaseId: DATABASE_ID,
         tableId: TABLE_ID,
@@ -35,8 +40,10 @@ export const updateSearchCount = async(query:string, movie:Movie) => {
         ]
     })
 
+    const rows = result?.rows ?? [];
+
  // Check if the record of that search has already been stored
-    if(result.rows.length === 0) {
+    if(rows.length > 0) {
         const existingMovie = result.rows[0];
 
         await tablesDB.updateRow<Models.DefaultRow>({
@@ -46,7 +53,8 @@ export const updateSearchCount = async(query:string, movie:Movie) => {
             data: {
                 count: existingMovie.count + 1,
             },
-        })
+        });
+        console.log(`movie already exist. Count updated`)
     }else{
         await tablesDB.createRow<Models.DefaultRow>({
             databaseId: DATABASE_ID,
@@ -54,19 +62,25 @@ export const updateSearchCount = async(query:string, movie:Movie) => {
             rowId: ID.unique(),
             data: {
                 searchTerm: query,
-                movie_id: movie.id,
+                movie_id: firstMovie.id,
                 count: 1,
-                poster_url: `https://image,tmdb.org/t/p/w500${movie.poster_path}`,
+                poster_url: `https://image.tmdb.org/t/p/w500${firstMovie.poster_path}`,
+                title: firstMovie.title,
             }
 
-        })
+        });
+        console.log('No existing records, newmovie sent to appwrite Database  ', firstMovie.title)
+
     }
 
- console.log(result);
+    //console.log("ListRows result:", JSON.stringify(result, null, 2));
+
+
+  //console.log(result);
 
    
     // If document is found, implement searchCount Field
     // If no document is found
         //create a new document in Appwrite database -> 1
-   console.log(appwriteDatabaseId, appwriteProjectId, appwriteEndpoint, appwriteTableId, appwriteProjectName);
+   //console.log(appwriteDatabaseId, appwriteProjectId, appwriteEndpoint, appwriteTableId, appwriteProjectName);
 }
