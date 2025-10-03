@@ -4,6 +4,7 @@ import SearchBar from "@/components/SearchBar";
 import { icons } from "@/constants/icons";
 import { images } from "@/constants/images";
 import { fetchMovies } from "@/services/api";
+import { TrendingMovies } from "@/services/appwrite";
 import useFetch from "@/services/useFetch";
 import { useRouter } from "expo-router";
 import { ActivityIndicator, FlatList, Image, ScrollView, Text, View } from "react-native";
@@ -19,6 +20,12 @@ export default function Index() {
     query: ''
   }))
 
+  const {
+    data: trendingMovies,
+    loading: trendingMoviesloading,
+    error: trendingMovieserror
+  } = useFetch(() => TrendingMovies())
+
   return (
     <View
       className="flex-1 bg-primary"
@@ -30,7 +37,7 @@ export default function Index() {
       }}>
         <Image source={icons.logo} className="w-12 h-10 mt-20 mb-5 mx-auto" />
 
-        {moviesloading ? (
+        {moviesloading || trendingMoviesloading ? (
           <ActivityIndicator 
             size="large"
             color="#0000ff"
@@ -45,6 +52,17 @@ export default function Index() {
               />
 
               <>
+                <Text className="text-lg text-white font-bold mt-5 mb-3">Trending Movies</Text>
+              
+                <FlatList 
+                  horizontal
+                  data={trendingMovies}
+                  renderItem={({item}) => (
+                    <Text className="text-sm text-white">{item.title}</Text>
+                  )}
+                />
+              
+              
                 <Text className="text-lg text-white font-bold mt-5 mb-3"> Latest Movies </Text>
                 <FlatList
                   data={movies}

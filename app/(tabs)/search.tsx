@@ -21,11 +21,14 @@ const Search = () => {
     query: searchQuery,
   }), false);
 
+  //useFetch(() => TrendingMovies())
+
   const handlePress = () => {
     //console.log(searchQuery)
     //updateSearchCount(searchQuery, movies);
     //console.log(movies[0].id)
     // refetchMovies();
+    //TrendingMovies()
   }
 
    
@@ -34,13 +37,8 @@ const Search = () => {
 
       const timeoutId = setTimeout(
         async() =>{
-          if (searchQuery.trim()) {
+          if (searchQuery.trim() && searchQuery != "") {
             await refetchMovies()
-
-            if (movies?.length > 0 && movies?.[0]) {
-              updateSearchCount(searchQuery, movies[0])
-            }
-              
             
           }else{
             reset()
@@ -51,7 +49,12 @@ const Search = () => {
       
     }, [searchQuery])
 
-  
+    useEffect(() => {
+      if (searchQuery.trim() && movies?.length > 0 && movies?.[0]) {
+        updateSearchCount(searchQuery, movies[0])
+      }
+    }, [movies])
+
   
   
   return (

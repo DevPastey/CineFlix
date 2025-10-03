@@ -1,4 +1,4 @@
-import { Movie } from "@/interfaces/interfaces";
+import { Movie, TrendingMovie } from "@/interfaces/interfaces";
 import Constants from "expo-constants";
 import { title } from "process";
 //import "dotenv/config"; 
@@ -44,7 +44,9 @@ export const updateSearchCount = async(query:string, movie:Movie) => {
 
         // Check if the record of that search has already been stored
         if(rows.length > 0) {
-            const existingMovie = result.rows[0];
+            const existingMovie = rows[0];
+            
+            // If document is found, implement searchCount Field
 
             await tablesDB.updateRow<Models.DefaultRow>({
                 databaseId: DATABASE_ID,
@@ -54,8 +56,11 @@ export const updateSearchCount = async(query:string, movie:Movie) => {
                     count: existingMovie.count + 1,
                 },
             });
-            console.log(`movie already exist. Count updated`)
+            console.log(`movie already exist. Count updated`, movie.title);
+
         }else{
+            // If no document is found
+                //create a new document in Appwrite database -> 1
             await tablesDB.createRow<Models.DefaultRow>({
                 databaseId: DATABASE_ID,
                 tableId: TABLE_ID,
@@ -81,8 +86,27 @@ export const updateSearchCount = async(query:string, movie:Movie) => {
 
 
    
-    // If document is found, implement searchCount Field
-    // If no document is found
-        //create a new document in Appwrite database -> 1
-   //console.log(appwriteDatabaseId, appwriteProjectId, appwriteEndpoint, appwriteTableId, appwriteProjectName);
+    
+    
+   
+}
+
+export const TrendingMovies = async() => {
+    try {
+        const response = await tablesDB.listRows({
+            databaseId: DATABASE_ID,
+            tableId: TABLE_ID,
+            queries: [
+                Query.limit(5),
+                Query.orderDesc("count")
+
+            ]
+        })
+        return response.rows as unknown as TrendingMovie[];
+
+        //console.log(response.rows)
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
 }

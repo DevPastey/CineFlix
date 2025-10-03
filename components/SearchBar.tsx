@@ -18,7 +18,8 @@ export default function SearchBar( {value, onPress, placeholder, onChangeText}: 
         className='flex-1 flex-white ml-2 text-white'
         autoCorrect={false}
         autoCapitalize="none"
-        clearButtonMode="always"
+        clearButtonMode='always'
+        
         
     
       />
