@@ -15,29 +15,38 @@ export const TMDB_CONFIG = {
 
 
 export const fetchMovies = async({ query }: { query: string }) => {
-    const endpoint = query
-    ? `${TMDB_CONFIG.BASE_URL}/search/movie?query=${encodeURIComponent(query)}` 
-    : `${TMDB_CONFIG.BASE_URL}/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc`;
+  const endpoint = query
+  ? `${TMDB_CONFIG.BASE_URL}/search/movie?query=${encodeURIComponent(query)}` 
+  : `${TMDB_CONFIG.BASE_URL}/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc`;
 
-    const res = await fetch(endpoint, {
-        method: "GET",
-        headers: TMDB_CONFIG.headers,
-    });
+  const res = await fetch(endpoint, {
+      method: "GET",
+      headers: TMDB_CONFIG.headers,
+  });
 
 
-    if (!res.ok) {
-     // @ts-ignore
-        throw new Error("Failed to fetch movies", res.statusText);
-    }
+  if (!res.ok) {
+    // @ts-ignore
+      throw new Error("Failed to fetch movies", res.statusText);
+  }
 
-    const data = await res.json();
+  const data = await res.json();
 
-    //console.log(data);
+  //console.log(data);
 
-    return data.results;
+  return data.results;
 
-    
+    0
 
+}
+
+export const fetchMovieDetails = async() => {
+  const endpoint = `${TMDB_CONFIG.BASE_URL}/movie/movie_id?language=en-US`;
+
+  const res = await fetch(endpoint, {
+    method: "GET",
+    headers: TMDB_CONFIG.headers
+  })
 }
 
 // console.log(TMDB_CONFIG.API_KEY);
