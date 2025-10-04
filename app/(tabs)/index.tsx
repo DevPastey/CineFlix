@@ -1,16 +1,20 @@
 
 import MovieCard from "@/components/MovieCard";
 import SearchBar from "@/components/SearchBar";
+import TrendingMovieCard from "@/components/TrendingMovieCard";
 import { icons } from "@/constants/icons";
 import { images } from "@/constants/images";
+import { Movie } from "@/interfaces/interfaces";
 import { fetchMovies } from "@/services/api";
 import { TrendingMovies } from "@/services/appwrite";
 import useFetch from "@/services/useFetch";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { ActivityIndicator, FlatList, Image, ScrollView, Text, View } from "react-native";
 
 export default function Index() {
+  // {id} = useLocalSearchParams();
   const router = useRouter();
+  
 
   const {
     data: movies,
@@ -25,6 +29,8 @@ export default function Index() {
     loading: trendingMoviesloading,
     error: trendingMovieserror
   } = useFetch(() => TrendingMovies())
+
+ 
 
   return (
     <View
@@ -42,7 +48,7 @@ export default function Index() {
             size="large"
             color="#0000ff"
             className="mt-10 self-center"
-          />) : moviesError ? (
+          />) : moviesError || trendingMovieserror ? (
             <Text> Error: ${moviesError?.message}</Text>
           ) : (
             <View className="flex-1 mt-5">
@@ -52,15 +58,21 @@ export default function Index() {
               />
 
               <>
-                <Text className="text-lg text-white font-bold mt-5 mb-3">Trending Movies</Text>
+                <View>
+                  <Text className="text-lg text-white font-bold mt-5 mb-3">Popular Movies</Text>
               
-                <FlatList 
-                  horizontal
-                  data={trendingMovies}
-                  renderItem={({item}) => (
-                    <Text className="text-sm text-white">{item.title}</Text>
-                  )}
-                />
+                  <FlatList 
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    data={trendingMovies}
+                    renderItem={({item, index}) => (
+                      <TrendingMovieCard movie={item} index={index} />
+                    )}
+                    keyExtractor={(item) => item.movie_id.toString()}
+                    className="mb-4 mt-3"
+                  />
+                  
+                </View>
               
               
                 <Text className="text-lg text-white font-bold mt-5 mb-3"> Latest Movies </Text>

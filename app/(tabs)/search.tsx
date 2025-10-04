@@ -26,8 +26,8 @@ const Search = () => {
   const handlePress = () => {
     //console.log(searchQuery)
     //updateSearchCount(searchQuery, movies);
-    //console.log(movies[0].id)
     // refetchMovies();
+    // console.log(movies[0].genres)
     //TrendingMovies()
   }
 

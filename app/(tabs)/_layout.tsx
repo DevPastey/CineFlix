@@ -9,7 +9,7 @@ import { TabIconProps } from '@/types/componentProps'
 const TabIcon = ({ focused, icon, title }: TabIconProps) => {
     if (focused) {
       return (
-        <ImageBackground source={images.highlight} className='flex flex-row w-full flex-1 min-w-[112px] min-h-14 mt-4 justify-center items-center rounded-full overflow-hidden'>
+        <ImageBackground source={images.highlight} className='flex flex-row w-full flex-1 min-w-[112px] min-h-14 mt-[18px] ml-1 justify-center items-center rounded-full overflow-hidden'>
           <Image source={icon} tintColor="#151312"  className='size-5' />
           <Text className='text-secondary text-base font-semibold ml-2'>{ title }</Text>
         </ImageBackground>
@@ -40,8 +40,8 @@ const _layout = () => {
        tabBarStyle: {
         backgroundColor: "#0f0d23",
         borderRadius: 50,
-        height: 52,
-        marginHorizontal: 20,
+        height: 56,
+        marginHorizontal: 10,
         marginBottom: 36,
         position: "absolute",
         overflow: "hidden",
