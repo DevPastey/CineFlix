@@ -32,21 +32,30 @@ export const fetchMovies = async({ query }: { query: string }) => {
 
   const data = await res.json();
 
-  //console.log(data);
+  //console.log(data.results);
 
   return data.results;
 
-    0
-
 }
 
-export const fetchMovieDetails = async() => {
-  const endpoint = `${TMDB_CONFIG.BASE_URL}/movie/movie_id?language=en-US`;
+export const fetchMovieDetails = async(id: string | string[]) => {
+  const endpoint = `${TMDB_CONFIG.BASE_URL}/movie/${id}?language=en-US`;
 
   const res = await fetch(endpoint, {
     method: "GET",
     headers: TMDB_CONFIG.headers
   })
+
+  if (!res.ok) {
+    // @ts-ignore
+      throw new Error("Failed to fetch movies", res.statusText);
+  }
+
+  const data = await res.json();
+
+  //console.log(data);
+
+  return data;
 }
 
 // console.log(TMDB_CONFIG.API_KEY);
