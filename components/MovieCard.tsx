@@ -4,8 +4,11 @@ import { Link } from 'expo-router';
 import React from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 
-export default function MovieCard({ id, poster_path, title, vote_average, release_date, genres}: Movie) {
-
+interface Props {
+    movie: Movie;
+}
+export default function MovieCard({movie: { id, poster_path, title, vote_average, release_date, genres} }: Props) {
+  
     
   return (
     <Link href={`/movies/${id}`} asChild>
@@ -27,9 +30,7 @@ export default function MovieCard({ id, poster_path, title, vote_average, releas
 
             <View className='flex-row items-center justify-between '>
                 <Text className='text-xs text-light-300 mt-1 font-medium'> { release_date?.split("-")[0]} </Text>
-                {/* <Text className='text-xs text-light-300 mt-1 font-medium'> {genres.map(genre) =>  } </Text> */}
-
-                {/* <Text className='text-xs font-medium text-light-300 uppercase'> Movie </Text> */}
+                
             </View>
         </TouchableOpacity>
     </Link>

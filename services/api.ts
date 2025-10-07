@@ -38,7 +38,7 @@ export const fetchMovies = async({ query }: { query: string }) => {
 
 }
 
-export const fetchMovieDetails = async(id: string | string[]) => {
+export const fetchMovieDetails = async(id: string | string[] ) => {
   const endpoint = `${TMDB_CONFIG.BASE_URL}/movie/${id}?language=en-US`;
 
   const res = await fetch(endpoint, {

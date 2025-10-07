@@ -66,7 +66,7 @@ export default function Index() {
                     showsHorizontalScrollIndicator={false}
                     data={trendingMovies}
                     renderItem={({item, index}) => (
-                      <TrendingMovieCard movie={item} index={index} />
+                      <TrendingMovieCard  movie={item} index={index} />
                     )}
                     keyExtractor={(item) => item.movie_id.toString()}
                     className="mb-4 mt-3"
@@ -80,7 +80,7 @@ export default function Index() {
                   data={movies}
                   renderItem={({item}) => (
                     <MovieCard 
-                    {...item}
+                    movie={item}
                     />
                   )}
                   keyExtractor={(item) => item.id.toString()}

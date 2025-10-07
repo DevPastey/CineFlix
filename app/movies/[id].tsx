@@ -35,7 +35,7 @@ const MovieDetails = () => {
       )}
     >
       {!movieDetailsLoading && !movieDetailsError && (
-      <MovieDetailsPage  {...movieDetails} />
+      <MovieDetailsPage details={movieDetails} />
       )}
 
     </ScrollView>

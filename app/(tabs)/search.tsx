@@ -7,6 +7,7 @@ import MovieCard from '@/components/MovieCard'
 import { icons } from '@/constants/icons'
 import SearchBar from '@/components/SearchBar'
 import { updateSearchCount } from '@/services/appwrite'
+import MovieDetails from '../movies/[id]'
 
 const Search = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -29,6 +30,7 @@ const Search = () => {
     // refetchMovies();
     // console.log(movies[0].genres)
     //TrendingMovies()
+    //MovieDetails()
   }
 
    
