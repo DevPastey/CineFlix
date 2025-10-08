@@ -18,7 +18,7 @@ export default function TrendingMovieCard({movie: {poster_url, title, movie_id, 
                 className='w-28 h-48 rounded-lg'
                 resizeMode='cover'
             />
-            <View className='absolute bottom-8  -left-6 px-2  py-1 rounded-full'>
+            <View className='absolute bottom-4  -left-6 px-2  py-1 rounded-full'>
                 {/* <Text className='text-7xl  font-bold'>{index + 1}</Text> */}
 
                 <MaskedView 
@@ -35,10 +35,10 @@ export default function TrendingMovieCard({movie: {poster_url, title, movie_id, 
             </View>
             <Text numberOfLines={1} className='text-white font-bold mt-3'>{title}</Text>
 
-            <View className='flex-row items-center justify-between '>
+            {/* <View className='flex-row items-center justify-between '>
                 <Text className='text-xs text-light-300 mt-1 font-medium'> Genre </Text>
                
-            </View>
+            </View> */}
       </TouchableOpacity>
      </Link>
   );

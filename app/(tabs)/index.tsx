@@ -4,22 +4,25 @@ import SearchBar from "@/components/SearchBar";
 import TrendingMovieCard from "@/components/TrendingMovieCard";
 import { icons } from "@/constants/icons";
 import { images } from "@/constants/images";
-import { Movie } from "@/interfaces/interfaces";
 import { fetchMovies } from "@/services/api";
 import { TrendingMovies } from "@/services/appwrite";
 import useFetch from "@/services/useFetch";
-import { useLocalSearchParams, useRouter } from "expo-router";
-import { ActivityIndicator, FlatList, Image, ScrollView, Text, View } from "react-native";
+import { useRouter } from "expo-router";
+import { useCallback, useState } from "react";
+import { ActivityIndicator, FlatList, Image, RefreshControl, ScrollView, Text, View } from "react-native";
 
 export default function Index() {
-  // {id} = useLocalSearchParams();
+ 
   const router = useRouter();
+
+  const [refreshing, setRefreshing] = useState(false)
   
 
   const {
     data: movies,
     loading: moviesloading,
-    error: moviesError
+    error: moviesError,
+    refetch: refetchMovies,
   } = useFetch(() => fetchMovies({
     query: ''
   }))
@@ -27,8 +30,25 @@ export default function Index() {
   const {
     data: trendingMovies,
     loading: trendingMoviesloading,
-    error: trendingMovieserror
-  } = useFetch(() => TrendingMovies())
+    error: trendingMovieserror,
+    refetch: refetchTrending,
+  } = useFetch(() => TrendingMovies());
+
+
+  // --- Refresh handler ---
+  const onRefresh = useCallback(async () => {
+    setRefreshing(true);
+    try {
+      await Promise.all([
+        refetchMovies?.(),
+        refetchTrending?.(),
+      ]);
+    } catch (error) {
+      console.error("Refresh error:", error);
+    } finally {
+      setRefreshing(false);
+    }
+  }, [refetchMovies, refetchTrending]);
 
  
 
@@ -39,8 +59,12 @@ export default function Index() {
       <Image source={images.bg} className="z-0 w-full absolute" />
       <ScrollView className="px-5 flex-1" showsVerticalScrollIndicator={false} contentContainerStyle={{
         minHeight: "100%",
-        paddingBottom: 10
-      }}>
+        paddingBottom: 10,
+      }}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor="#fff" />
+      }
+      >
         <Image source={icons.logo} className="w-12 h-10 mt-20 mb-5 mx-auto" />
 
         {moviesloading || trendingMoviesloading ? (

@@ -5,10 +5,14 @@ import React from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 
 interface Props {
-    movie: Movie;
+  movie: Movie | null | undefined; // safer typing
 }
-export default function MovieCard({movie: { id, poster_path, title, vote_average, release_date, genres} }: Props) {
-  
+export default function MovieCard({movie }: Props) {
+   if (!movie) {
+    return null;
+  }
+
+  const { id, poster_path, title, vote_average, release_date, genres} = movie;
     
   return (
     <Link href={`/movies/${id}`} asChild>
@@ -32,6 +36,7 @@ export default function MovieCard({movie: { id, poster_path, title, vote_average
                 <Text className='text-xs text-light-300 mt-1 font-medium'> { release_date?.split("-")[0]} </Text>
                 
             </View>
+
         </TouchableOpacity>
     </Link>
   );

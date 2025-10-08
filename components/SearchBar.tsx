@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { Image, TextInput, View } from 'react-native';
 
 export default function SearchBar( {value, onPress, placeholder, onChangeText}: InputTextProps) {
-    // const [value, setValue] = useState<string>('');
     
   return (
     <View className='flex-row items-center bg-dark-200 rounded-full px-5 py-4'>
@@ -19,8 +18,6 @@ export default function SearchBar( {value, onPress, placeholder, onChangeText}: 
         autoCorrect={false}
         autoCapitalize="none"
         clearButtonMode='always'
-        
-        
     
       />
      </View>

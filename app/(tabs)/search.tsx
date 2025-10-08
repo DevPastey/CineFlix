@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Image, FlatList, ActivityIndicator } from 'react-native'
-import React, { use, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { images } from '@/constants/images'
 import useFetch from '@/services/useFetch'
 import { fetchMovies } from '@/services/api'
@@ -7,10 +7,10 @@ import MovieCard from '@/components/MovieCard'
 import { icons } from '@/constants/icons'
 import SearchBar from '@/components/SearchBar'
 import { updateSearchCount } from '@/services/appwrite'
-import MovieDetails from '../movies/[id]'
 
 const Search = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
+
   
   const {
     data: movies,
@@ -22,9 +22,10 @@ const Search = () => {
     query: searchQuery,
   }), false);
 
-  //useFetch(() => TrendingMovies())
+  
 
   const handlePress = () => {
+    // router.push("/search")
     //console.log(searchQuery)
     //updateSearchCount(searchQuery, movies);
     // refetchMovies();
@@ -35,7 +36,7 @@ const Search = () => {
 
    
     useEffect(() => {
-      //updateSearchCount(searchQuery, movies);
+    
 
       const timeoutId = setTimeout(
         async() =>{
@@ -66,7 +67,7 @@ const Search = () => {
 
       <FlatList 
         data={movies}
-        renderItem={({ item }) => ( <MovieCard {...item} /> )}
+        renderItem={({ item }) => ( <MovieCard movie={item} /> )}
         keyExtractor={(item) => item.id.toString()}
         className='px-5'
         numColumns={3}

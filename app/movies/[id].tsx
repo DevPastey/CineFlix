@@ -19,21 +19,22 @@ const MovieDetails = () => {
       fetchMovieDetails(id)
     }, [id]);
   return (
-    <ScrollView contentContainerStyle={{
-        // justifyContent: "center",
-        // alignItems: "center",
+    <ScrollView 
+      contentContainerStyle={{
+        justifyContent: "center",
+        alignItems: "center",
         height: "100%",
       }} 
       className='bg-primary flex'
-
-      {...movieDetailsLoading && (
+    >
+      {movieDetailsLoading && (
         <ActivityIndicator size='large' color='#0000ff' />
       )}
 
-      {...movieDetailsError && (
+      {movieDetailsError && (
         <Text  className='text-red-500 px-5 my-3'> Error: {movieDetailsError.message} </Text>
       )}
-    >
+
       {!movieDetailsLoading && !movieDetailsError && (
       <MovieDetailsPage details={movieDetails} />
       )}
