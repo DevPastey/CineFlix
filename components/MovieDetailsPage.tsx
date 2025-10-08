@@ -102,7 +102,7 @@ export default function MovieDetailsPage({details}: MovieDetailsProps) {
         <View className='px-4'>
 
           <View className='gap-3'>
-            <Text className='text-white font-bold text-2xl'>{title}</Text>
+            <Text className='text-white font-bold text-2xl mt-2'>{title}</Text>
             <View className='flex flex-row'>
               <Text className='text-light-300'>{release_date?.split("-")[0]} </Text>
               <Text className='text-light-300'> &#8226;	</Text>
